@@ -2,6 +2,15 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
+    "dealerdirect/phpcodesniffer-composer-installer": {
+        "version": "v0.7.1"
+    },
+    "deployer/deployer": {
+        "version": "v6.8.0"
+    },
+    "deployer/phar-update": {
+        "version": "v2.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -108,6 +117,24 @@
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
     },
+    "phpstan/extension-installer": {
+        "version": "1.1.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.9"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.78"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.12.32"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.20"
+    },
+    "pimple/pimple": {
+        "version": "v3.3.1"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -133,6 +160,21 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "slevomat/coding-standard": {
+        "version": "6.4.1"
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        },
+        "files": [
+            "phpcs.xml.dist"
         ]
     },
     "symfony/asset": {
