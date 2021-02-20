@@ -1,4 +1,7 @@
 /.idea/
+/node_modules/
+/public/assets/*
+!/public/assets/manifest.json
 
 ###> symfony/framework-bundle ###
 /.env.local

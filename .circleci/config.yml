@@ -54,17 +54,16 @@ jobs:
       - image: johnnoel/php:7.4-cli
         environment:
           APP_ENV: test
-          DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel_uk_test?serverVersion=13&charset=utf8
+          DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel-uk-test?serverVersion=13&charset=utf8
       - image: circleci/postgres:13-ram
         environment:
           POSTGRES_USER: johnnoel-uk
           POSTGRES_PASSWORD: johnnoel-uk
-          POSTGRES_DB: johnnoel_uk_test
+          POSTGRES_DB: johnnoel-uk-test
     steps:
       - attach_workspace:
           at: /tmp
       - run: bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-      - run: bin/console doctrine:fixtures:load --no-interaction
       - run: bin/phpunit --stop-on-failure --log-junit junitreport.xml
       - store_test_results:
           path: /tmp/johnnoel-uk/junitreport.xml
@@ -80,8 +79,6 @@ jobs:
       - attach_workspace:
           at: /tmp
       - run: npm run prod --prefix /tmp/johnnoel-uk
-      - run: npm run imagemin --prefix /tmp/johnnoel-uk
-      - run: npm run tumblr --prefix /tmp/johnnoel-uk
       - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
       - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
       - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
