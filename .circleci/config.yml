@@ -101,7 +101,6 @@ jobs:
             - run: doctl compute firewall add-rules --inbound-rules "protocol:tcp,ports:22,address:${EXTERNAL_IP}/32" "${DIGITALOCEAN_FIREWALL_ID}"
             - run: ssh-keyscan -H 67.207.69.0 >> ~/.ssh/known_hosts
             - run: vendor/bin/dep -vvv deploy "https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/latest/artifacts" "${CIRCLE_TOKEN}"
-            - run: sentry-cli releases finalize "${VERSION}"
             - run: doctl compute firewall remove-rules --inbound-rules "protocol:tcp,ports:22,address:${EXTERNAL_IP}/32" "${DIGITALOCEAN_FIREWALL_ID}"
 
 workflows:
