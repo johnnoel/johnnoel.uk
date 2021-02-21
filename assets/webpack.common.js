@@ -32,6 +32,10 @@ module.exports = {
                 ],
             },
             {
+                test: /\.svg$/,
+                type: 'asset/resource',
+            },
+            {
                 test: /\.js$/,
                 enforce: 'pre',
                 loader: 'source-map-loader',
