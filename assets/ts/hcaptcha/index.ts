@@ -1,9 +1,8 @@
 // called when hcaptcha submits successfully
 (<any>window).hCaptchaCallback = (response: string) => {
-    console.log(response);
-
-    const field = document.getElementById('js-hcaptcha-field') as HTMLInputElement|null;
+    const field = document.getElementById('contact_hcaptchaResponse') as HTMLInputElement|null;
     if (field === null) {
+        console.error('Unable to find field for attaching hcaptcha response');
         return;
     }
 

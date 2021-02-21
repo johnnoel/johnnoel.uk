@@ -13,7 +13,7 @@
     {{ form_row(form.name) }}
     {{ form_row(form.email) }}
     {{ form_row(form.message, { 'help': 'Markdown is okay!' }) }}
-    {{ form_row(form.hcaptchaResponse, { 'attr': { 'id': 'js-hcaptcha-field' }}) }}
+    {{ form_row(form.hcaptchaResponse) }}
 
     <button type="submit" class="h-captcha" data-sitekey="{{ hcaptcha_site_key }}" data-callback="hCaptchaCallback" data-theme="dark" data-size="invisible">
         Send message
