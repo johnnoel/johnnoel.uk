@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if success_message is not empty %}
+        <div class="contact-success">{{ success_message }}</div>
+    {% endif %}
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.message, { 'help': 'Markdown is okay!' }) }}
+
+    <button type="submit">Send message</button>
+    {{ form_end(form) }}
+{% endblock %}

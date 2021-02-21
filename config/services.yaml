@@ -26,6 +26,10 @@ services:
         arguments:
             $availableServices: !tagged_iterator app.service
 
+    App\MessageHandler\ContactNotificationHandler:
+        arguments:
+            $contactAddress: '%env(CONTACT_ADDRESS)%'
+
     App\Service\Fetcher:
         arguments:
             $services: !tagged_iterator app.service
