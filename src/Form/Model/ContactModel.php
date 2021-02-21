@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Model;
 
+use App\Validator\HCaptcha;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContactModel
@@ -33,8 +34,9 @@ class ContactModel
      * )
      */
     public ?string $message = null;
-    /*
+    /**
      * @Assert\NotBlank(message="Please complete the CAPTCHA if required")
+     * @HCaptcha(message="Please complete the CAPTCHA if required")
      */
     public ?string $hcaptchaResponse = null;
 }

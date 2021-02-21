@@ -29,9 +29,9 @@ class ContactType extends AbstractType
             'trim' => true,
         ])->add('message', TextareaType::class, [
             'required' => true,
-        ])/*->add('hcaptchaResponse', HiddenType::class, [
+        ])->add('hcaptchaResponse', HiddenType::class, [
             'required' => true,
-        ])*/;
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

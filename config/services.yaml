@@ -33,3 +33,8 @@ services:
     App\Service\Fetcher:
         arguments:
             $services: !tagged_iterator app.service
+
+    App\Validator\HCaptchaValidator:
+        arguments:
+            $secretKey: '%env(HCAPTCHA_SECRET_KEY)%'
+            $siteKey: '%env(HCAPTCHA_SITE_KEY)%'
