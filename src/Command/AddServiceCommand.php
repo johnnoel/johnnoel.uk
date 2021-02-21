@@ -14,6 +14,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class AddServiceCommand extends Command
 {
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @var string
+     */
     protected static $defaultName = 'services:add';
 
     private ServiceRepository $serviceRepository;

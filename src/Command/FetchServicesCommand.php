@@ -12,6 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FetchServicesCommand extends Command
 {
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @var string
+     */
     protected static $defaultName = 'services:fetch';
 
     private Fetcher $fetcher;

@@ -20,7 +20,7 @@ class UptimeRobot implements ServiceInterface, LoggerAwareInterface
     }
 
     /**
-     * @param array<string,string> $credentials
+     * @inheritDoc
      */
     public function fetch(array $credentials): void
     {
