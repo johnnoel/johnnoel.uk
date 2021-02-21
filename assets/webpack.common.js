@@ -21,9 +21,11 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: () => ([
-                                require('autoprefixer'),
-                            ]),
+                            postcssOptions: {
+                                plugins: [
+                                    'autoprefixer',
+                                ]
+                            }
                         },
                     },
                     'sass-loader',
@@ -38,7 +40,7 @@ module.exports = {
     },
     resolve: { extensions: [ '.ts', '.tsx', '.js', '.jsx' ] },
     output: {
-        filename: 'index.[contenthash].js',
+        filename: '[name].[contenthash].js',
         chunkFilename: '[id].[contenthash].js',
         path: path.resolve(__dirname, '../public/assets/'),
         publicPath: '/assets/',
