@@ -19,7 +19,7 @@ set('allow_anonymous_stats', false);
 set('branch', 'main');
 set('default_stage', 'production');
 
-host([ '67.207.69.0' ])
+host('67.207.69.0')
     ->stage('production')
     ->user('johnnoel-uk')
     ->forwardAgent(false)
@@ -44,7 +44,7 @@ task('deploy:update_code', function () {
     ]));
 
     run('wget -qO johnnoel-uk.tar.bz2 ' . $url);
-    run('tar xjf johnnoe-uk.tar.bz2 -C {{release_path}}');
+    run('tar xjf johnnoel-uk.tar.bz2 -C {{release_path}}');
 });
 task('deploy:vendors', function () { });
 
