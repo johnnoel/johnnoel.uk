@@ -1,2 +1,4 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        hcaptcha_site_key: '%env(HCAPTCHA_SITE_KEY)%'

@@ -9,20 +9,20 @@
         <div class="contact-info">Unfortunately due to spam to use the contact form, JavaScript is required</div>
     </noscript>
 
-    {{ form_start(form, { 'attr': { 'id': 'js-contact-lite' } }) }}
+    {{ form_start(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.email) }}
     {{ form_row(form.message, { 'help': 'Markdown is okay!' }) }}
-    {{ form_row(form.hcaptchaResponse) }}
+    {{ form_row(form.hcaptchaResponse, { 'attr': { 'id': 'js-hcaptcha-field' }}) }}
 
-    <div id="js-contact-lite-hcaptcha"></div>
-
-    <button type="submit" id="js-contact-lite-submit">Send message</button>
+    <button type="submit" class="h-captcha" data-sitekey="{{ hcaptcha_site_key }}" data-callback="hCaptchaCallback" data-theme="dark" data-size="invisible">
+        Send message
+    </button>
     {{ form_end(form) }}
 
     <p>This form is protected by hCaptcha and its <a href="https://hcaptcha.com/privacy">Privacy Policy</a> and <a href="https://hcaptcha.com/terms">Terms of Service</a> apply.</p>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://hcaptcha.com/1/api.js?onload=hCaptchaInit&amp;render=explicit" async defer></script>
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
 {% endblock javascripts %}

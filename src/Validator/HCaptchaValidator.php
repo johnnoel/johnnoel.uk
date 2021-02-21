@@ -11,7 +11,6 @@ use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -20,7 +19,6 @@ class HCaptchaValidator extends ConstraintValidator
 {
     use LoggerAwareTrait;
 
-    private RequestStack $requestStack;
     private string $secretKey;
     private string $siteKey;
     /**
@@ -28,9 +26,8 @@ class HCaptchaValidator extends ConstraintValidator
      */
     private ?bool $override = null;
 
-    public function __construct(RequestStack $requestStack, string $secretKey, string $siteKey)
+    public function __construct(string $secretKey, string $siteKey)
     {
-        $this->requestStack = $requestStack;
         $this->secretKey = $secretKey;
         $this->siteKey = $siteKey;
         $this->logger = new NullLogger();
@@ -56,15 +53,7 @@ class HCaptchaValidator extends ConstraintValidator
             return;
         }
 
-        // don't check the value of the field as irrelevant when pulling from a specific post parameter
-
-        $request = $this->requestStack->getMasterRequest();
-
-        if ($request === null) {
-            return;
-        }
-
-        $hCaptchaResponse = $request->request->get('h-captcha-response');
+        $hCaptchaResponse = $value;
 
         if (!is_string($hCaptchaResponse) || $hCaptchaResponse === '') {
             $this->context->buildViolation($constraint->message)
@@ -91,7 +80,6 @@ class HCaptchaValidator extends ConstraintValidator
                 'form_params' => [
                     'secret' => $this->secretKey,
                     'response' => $hCaptchaResponse,
-                    'remoteip' => $request->getClientIp(),
                     'sitekey' => $this->siteKey,
                 ],
             ]);
