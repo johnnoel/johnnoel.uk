@@ -1,110 +1,134 @@
 version: 2.1
 jobs:
-  install:
-    working_directory: /tmp/johnnoel-uk
-    docker:
-      - image: circleci/php:7.4-cli-node
-    steps:
-      - checkout
-      - run: sudo composer self-update
-      - restore_cache:
-          keys:
-            - composer-v1-{{ checksum "composer.lock" }}
-            - composer-v1-
-      - restore_cache:
-          keys:
-            - npm-v1-{{ checksum "package-lock.json" }}
-            - npm-v1-
-      - run: composer install --no-interaction --no-progress
-      - run: npm install
-      - save_cache:
-          key: composer-v1-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
-      - save_cache:
-          key: npm-v1-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-      - persist_to_workspace:
-          root: /tmp/
-          paths:
-            - johnnoel-uk
+    install:
+        working_directory: /tmp/johnnoel-uk
+        docker:
+            - image: circleci/php:7.4-cli-node
+        steps:
+            - checkout
+            - run: sudo composer self-update
+            - restore_cache:
+                  keys:
+                      - composer-v1-{{ checksum "composer.lock" }}
+                      - composer-v1-
+            - restore_cache:
+                  keys:
+                      - npm-v1-{{ checksum "package-lock.json" }}
+                      - npm-v1-
+            - run: composer install --no-interaction --no-progress
+            - run: npm install
+            - save_cache:
+                  key: composer-v1-{{ checksum "composer.lock" }}
+                  paths:
+                      - vendor
+            - save_cache:
+                  key: npm-v1-{{ checksum "package-lock.json" }}
+                  paths:
+                      - node_modules
+            - persist_to_workspace:
+                  root: /tmp/
+                  paths:
+                      - johnnoel-uk
 
-  coding-standards:
-    working_directory: /tmp/johnnoel-uk
-    docker:
-      - image: circleci/php:7.4-cli
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run: vendor/bin/phpcs -n src
+    coding-standards:
+        working_directory: /tmp/johnnoel-uk
+        docker:
+            - image: circleci/php:7.4-cli
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: vendor/bin/phpcs -n src
 
-  static-analysis:
-    working_directory: /tmp/johnnoel-uk
-    docker:
-      - image: circleci/php:7.4-cli
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run: php -d memory_limit=512M vendor/bin/phpstan analyse
+    static-analysis:
+        working_directory: /tmp/johnnoel-uk
+        docker:
+            - image: circleci/php:7.4-cli
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: php -d memory_limit=512M vendor/bin/phpstan analyse
 
-  test:
-    working_directory: /tmp/johnnoel-uk
-    docker:
-      - image: johnnoel/php:7.4-cli
-        environment:
-          APP_ENV: test
-          DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel-uk-test?serverVersion=13&charset=utf8
-      - image: circleci/postgres:13-ram
-        environment:
-          POSTGRES_USER: johnnoel-uk
-          POSTGRES_PASSWORD: johnnoel-uk
-          POSTGRES_DB: johnnoel-uk-test
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run: bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-      - run: bin/phpunit --stop-on-failure --log-junit junitreport.xml
-      - store_test_results:
-          path: /tmp/johnnoel-uk/junitreport.xml
+    test:
+        working_directory: /tmp/johnnoel-uk
+        docker:
+            - image: johnnoel/php:7.4-cli
+              environment:
+                  APP_ENV: test
+                  DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel-uk-test?serverVersion=13&charset=utf8
+            - image: circleci/postgres:13-ram
+              environment:
+                  POSTGRES_USER: johnnoel-uk
+                  POSTGRES_PASSWORD: johnnoel-uk
+                  POSTGRES_DB: johnnoel-uk-test
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+            - run: bin/phpunit --stop-on-failure --log-junit junitreport.xml
+            - store_test_results:
+                  path: /tmp/johnnoel-uk/junitreport.xml
 
-  build:
-    working_directory: /tmp
-    docker:
-      - image: circleci/php:7.4-cli-node
-        environment:
-          NODE_ENV: production
-          APP_ENV: prod
-    steps:
-      - attach_workspace:
-          at: /tmp
-      - run: npm run prod --prefix /tmp/johnnoel-uk
-      - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
-      - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
-      - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
-      - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
-      - store_artifacts:
-          path: /tmp/johnnoel-uk.tar.bz2
+    build:
+        working_directory: /tmp
+        docker:
+            - image: circleci/php:7.4-cli-node
+              environment:
+                  NODE_ENV: production
+                  APP_ENV: prod
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: npm run prod --prefix /tmp/johnnoel-uk
+            - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
+            - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
+            - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
+            - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
+            - store_artifacts:
+                  path: /tmp/johnnoel-uk.tar.bz2
+
+    deploy:
+        working_directory: /tmp/johnnoel-uk
+        docker:
+            - image: johnnoel/php:7.4-cli
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - add_ssh_keys:
+                  fingerprints:
+                      - "0a:3e:5d:cc:d1:21:30:32:19:f9:33:3b:77:a1:b0:18"
+            - run: doctl auth init --access-token "${DIGITALOCEAN_API_KEY}"
+            - run: echo "export EXTERNAL_IP=$(wget -qO- http://checkip.amazonaws.com/)" >> $BASH_ENV
+            - run: doctl compute firewall add-rules --inbound-rules "protocol:tcp,ports:22,address:${EXTERNAL_IP}/32" "${DIGITALOCEAN_FIREWALL_ID}"
+            - run: ssh-keyscan -H 67.207.69.0 >> ~/.ssh/known_hosts
+            - run: vendor/bin/dep -vvv deploy "https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/latest/artifacts" "${CIRCLE_TOKEN}"
+            - run: sentry-cli releases finalize "${VERSION}"
+            - run: doctl compute firewall remove-rules --inbound-rules "protocol:tcp,ports:22,address:${EXTERNAL_IP}/32" "${DIGITALOCEAN_FIREWALL_ID}"
 
 workflows:
-  version: 2
-  install-and-test:
-    jobs:
-      - install
-      - coding-standards:
-          requires:
+    version: 2
+    install-and-test:
+        jobs:
             - install
-      - static-analysis:
-          requires:
-            - install
-      - test:
-          requires:
-            - install
-      - build:
-          requires:
-            - coding-standards
-            - static-analysis
-            - test
-          filters:
-            branches:
-              only: main
+            - coding-standards:
+                  requires:
+                      - install
+            - static-analysis:
+                  requires:
+                      - install
+            - test:
+                  requires:
+                      - install
+            - build:
+                  requires:
+                      - coding-standards
+                      - static-analysis
+                      - test
+                  filters:
+                      branches:
+                          only: main
+            - deploy:
+                  requires:
+                      - build
+                  filters:
+                      branches:
+                          only: main
