@@ -621,5 +621,8 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "willdurand/negotiation": {
+        "version": "3.0.0"
     }
 }

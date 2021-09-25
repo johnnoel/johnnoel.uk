@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="{{ app.request.locale }}" class="no-js">
 <head>
     <meta charset="UTF-8">
     <title>johnnoel.uk</title>
@@ -9,8 +9,16 @@
     <link href="{{ asset('main.css') }}" rel="stylesheet">
 </head>
 <body>
+<nav role="navigation" class="selectlang">
+    <h5 class="selectlang-title">Select the site language</h5>
+    <a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'en' }) }}" class="selectlang-lang{% if app.request.locale == 'en' %} selectlang-active{% endif %}">English{% if app.request.locale == 'en' %} <span class="sr-only">({% trans %}currently_selected{% endtrans %})</span>{% endif %}</a>
+    <a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'ja' }) }}" class="selectlang-lang{% if app.request.locale == 'ja' %} selectlang-active{% endif %}">日本語{% if app.request.locale == 'ja' %} <span class="sr-only">({% trans %}currently_selected{% endtrans %})</span>{% endif %}</a>
+</nav>
 {% block body %}{% endblock body %}
 
+<nav role="navigation" class="sitecode">
+    <a href="https://github.com/johnnoel/johnnoel.uk" target="_blank" rel="noreferrer noopener">All the code for this site</a>
+</nav>
 <script src="{{ asset('main.js') }}" async defer></script>
 {% block javascripts %}{% endblock javascripts %}
 </body>

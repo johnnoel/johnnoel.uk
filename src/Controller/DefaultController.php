@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Form\Type\ContactType;
 use App\Message\ContactNotification;
+use Negotiation\AcceptLanguage;
+use Negotiation\LanguageNegotiator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="home", methods={"GET"})
+     * Redirect to a locale homepage
+     *
+     * @Route("/", name="landing", methods={"GET"})
+     */
+    public function localelessLanding(Request $request): Response
+    {
+        $negotiator = new LanguageNegotiator();
+        /** @var AcceptLanguage|null $best */
+        $best = $negotiator->getBest($request->headers->get('Accept-Language', ''), [ 'en', 'ja' ]);
+        $redirectLocale = ($best !== null) ? $best->getType() : 'en';
+
+        return $this->redirectToRoute('home', [ '_locale' => $redirectLocale ]);
+    }
+
+    /**
+     * @Route("/{_locale}", name="home", methods={"GET"})
      */
     public function index(): Response
     {
