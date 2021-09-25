@@ -28,11 +28,18 @@ module.exports = {
                             }
                         },
                     },
-                    'sass-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sassOptions: {
+                                quietDeps: true,
+                            },
+                        },
+                    },
                 ],
             },
             {
-                test: /\.svg$/,
+                test: /\.(svg|eot|woff2?|ttf|otf)$/,
                 type: 'asset/resource',
             },
             {

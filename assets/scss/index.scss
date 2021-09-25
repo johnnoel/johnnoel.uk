@@ -1,5 +1,10 @@
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands";
 @import 'reset';
-@import 'contact';
+
+$colour-highlight: #D54000;
 
 body {
     font: 400 22px/1.35 Karla, sans-serif;
@@ -17,7 +22,7 @@ h1 {
     font: 900 56px/1.0 Rubik, sans-serif;
 }
 
-nav {
+.sitecode {
     position: absolute;
     right: 12px;
     top: 12px;
@@ -37,5 +42,68 @@ nav {
             text-decoration: underline;
             opacity: 1;
         }
+    }
+}
+
+.socials {
+    padding: 20px 0 0;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        list-style: none;
+    }
+
+    li {
+        padding: 0 10px 0 0;
+    }
+
+    &-icon {
+        @extend %fa-icon;
+        @extend .fab;
+
+        font-size: 0;
+        color: rgba(0, 0, 0, 0);
+
+        &::before {
+            font-size: 32px;
+            color: #222;
+            transition: color .15s ease-in-out;
+        }
+
+        &:hover::before {
+            color: $colour-highlight;
+        }
+    }
+
+    &-twitter::before {
+        content: fa-content($fa-var-twitter-square);
+    }
+
+    &-github::before {
+        content: fa-content($fa-var-github-square);
+    }
+
+    &-tumblr::before {
+        content: fa-content($fa-var-tumblr-square);
+    }
+
+    &-twitch {
+        margin: 4px 0 0;
+
+        &::before {
+            font-size: 28px;
+            content: fa-content($fa-var-twitch);
+        }
+    }
+
+    &-lastfm::before {
+        content: fa-content($fa-var-lastfm-square);
+    }
+
+    &-youtube::before {
+        content: fa-content($fa-var-youtube-square);
     }
 }
