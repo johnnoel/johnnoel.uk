@@ -3,7 +3,7 @@ jobs:
     install:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: circleci/php:7.4-cli-node
+            - image: circleci/php:8.0-cli-node
         steps:
             - checkout
             - run: sudo composer self-update
@@ -33,7 +33,7 @@ jobs:
     coding-standards:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: circleci/php:7.4-cli
+            - image: circleci/php:8.0-cli
         steps:
             - attach_workspace:
                   at: /tmp
@@ -42,7 +42,7 @@ jobs:
     static-analysis:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: circleci/php:7.4-cli
+            - image: circleci/php:8.0-cli
         steps:
             - attach_workspace:
                   at: /tmp
@@ -51,7 +51,7 @@ jobs:
     test:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: johnnoel/php:7.4-cli
+            - image: johnnoel/php:8.0-cli
               environment:
                   APP_ENV: test
                   DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel-uk-test?serverVersion=13&charset=utf8
@@ -71,7 +71,7 @@ jobs:
     build:
         working_directory: /tmp
         docker:
-            - image: circleci/php:7.4-cli-node
+            - image: circleci/php:8.0-cli-node
               environment:
                   NODE_ENV: production
                   APP_ENV: prod
@@ -89,7 +89,7 @@ jobs:
     deploy:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: johnnoel/php:7.4-cli
+            - image: johnnoel/php:8.0-cli
         steps:
             - attach_workspace:
                   at: /tmp
