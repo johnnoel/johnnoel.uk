@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 RUN apt update && apt install -y libpq-dev libicu-dev libpng-dev libjpeg62-turbo-dev libfreetype6-dev
 RUN docker-php-ext-configure gd --with-jpeg
 RUN docker-php-ext-install pdo_pgsql intl gd

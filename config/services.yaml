@@ -6,10 +6,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    _instanceof:
-        App\Service\ServiceInterface:
-            tags: [ 'app.service' ]
-
     App\:
         resource: '../src/'
         exclude:
@@ -22,17 +18,9 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    App\Command\AddServiceCommand:
-        arguments:
-            $availableServices: !tagged_iterator app.service
-
     App\MessageHandler\ContactNotificationHandler:
         arguments:
             $contactAddress: '%env(CONTACT_ADDRESS)%'
-
-    App\Service\Fetcher:
-        arguments:
-            $services: !tagged_iterator app.service
 
     App\Validator\HCaptchaValidator:
         arguments:
