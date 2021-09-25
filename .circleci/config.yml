@@ -54,12 +54,12 @@ jobs:
             - image: johnnoel/php:8.0-cli
               environment:
                   APP_ENV: test
-                  DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel-uk-test?serverVersion=13&charset=utf8
+                  DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel-uk?serverVersion=13&charset=utf8
             - image: circleci/postgres:13-ram
               environment:
                   POSTGRES_USER: johnnoel-uk
                   POSTGRES_PASSWORD: johnnoel-uk
-                  POSTGRES_DB: johnnoel-uk-test
+                  POSTGRES_DB: johnnoel-uk_test
         steps:
             - attach_workspace:
                   at: /tmp
