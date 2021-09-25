@@ -1,5 +1,4 @@
 parameters:
-    secret: '%env(APP_SECRET)%'
 
 services:
     _defaults:
@@ -13,10 +12,6 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
-
-    App\Controller\:
-        resource: '../src/Controller/'
-        tags: ['controller.service_arguments']
 
     App\MessageHandler\ContactNotificationHandler:
         arguments:
