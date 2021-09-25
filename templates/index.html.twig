@@ -2,8 +2,8 @@
 
 {% block body %}
 <main role="main">
-    <h1>John Noel</h1>
-    <p>I build things for the web</p>
+    <h1>{% trans %}name{% endtrans %}</h1>
+    <p>{% trans %}build_web_things{% endtrans %}</p>
 
     <nav role="navigation" class="socials">
         <ul>
@@ -16,7 +16,4 @@
         </ul>
     </nav>
 </main>
-<nav role="navigation" class="sitecode">
-    <a href="https://github.com/johnnoel/johnnoel.uk" target="_blank" rel="noreferrer noopener">All the code for this site</a>
-</nav>
 {% endblock body %}

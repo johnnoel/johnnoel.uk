@@ -34,13 +34,10 @@ h1 {
         background: right center / 24px no-repeat url(../img/cog.svg);
         padding: 2px 28px 0 0;
         text-decoration: none;
-        color: #222;
-        opacity: 0.55;
-        transition: opacity .15s;
+        color: #777;
 
         &:hover, &:focus {
             text-decoration: underline;
-            opacity: 1;
         }
     }
 }
@@ -105,5 +102,32 @@ h1 {
 
     &-youtube::before {
         content: fa-content($fa-var-youtube-square);
+    }
+}
+
+.selectlang {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+
+    &-title {
+        @extend .sr-only;
+    }
+
+    &-lang {
+        display: inline-block;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 3px 6px;
+        color: #777;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &-active {
+        background: $colour-highlight;
+        color: #FFF;
     }
 }
