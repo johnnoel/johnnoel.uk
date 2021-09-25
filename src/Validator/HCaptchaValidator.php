@@ -9,28 +9,33 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
-use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class HCaptchaValidator extends ConstraintValidator
+class HCaptchaValidator extends ConstraintValidator implements LoggerAwareInterface
 {
-    use LoggerAwareTrait;
-
     private string $secretKey;
     private string $siteKey;
     /**
      * Shortcut the validator when testing - true = field is valid, false = field invalid
      */
     private ?bool $override = null;
+    private LoggerInterface $logger;
 
     public function __construct(string $secretKey, string $siteKey)
     {
         $this->secretKey = $secretKey;
         $this->siteKey = $siteKey;
         $this->logger = new NullLogger();
+    }
+
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
     }
 
     /**
