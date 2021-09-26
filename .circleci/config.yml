@@ -54,7 +54,7 @@ jobs:
             - image: johnnoel/php:8.0-cli
               environment:
                   APP_ENV: test
-                  DATABASE_URL: sqlite:///tmp/johnnoel-uk/var/db/db_test.sqlite3
+                  DATABASE_URL: sqlite:////tmp/johnnoel-uk/var/db/db_test.sqlite3
         steps:
             - attach_workspace:
                   at: /tmp
