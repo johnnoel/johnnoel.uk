@@ -3,4 +3,26 @@
 
 {% block body %}
     <h1>{{ project.name }}</h1>
+    {% if project.screenshot is not null %}
+        <img src="{{ project.screenshot }}" alt="">
+    {% endif %}
+
+    <dl>
+        {% if project.url is not empty %}
+            <dt>URL:</dt>
+            <dd><a href="{{ project.url }}">{{ project.url }}</a></dd>
+        {% endif %}
+        <dt>Status:</dt>
+        <dd>{{ project.status.name }}</dd>
+    </dl>
+
+    {% if project.rssUrl is not null %}
+        {{ render(controller('App\\Controller\\ProjectsController::rssFragment', { 'project': project })) }}
+    {% endif %}
+
+    {% if project.codeUrl is not null %}
+        {{ render(controller('App\\Controller\\ProjectsController::codeFragment', { 'project': project })) }}
+    {% endif %}
+
+    {{ project.description|raw }}
 {% endblock body %}

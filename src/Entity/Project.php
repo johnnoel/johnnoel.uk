@@ -12,6 +12,11 @@ use Ramsey\Uuid\Uuid;
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
+    /**
+     * URL to a screenshot if it exists
+     */
+    public ?string $screenshot = null;
+
     #[ORM\Id]
     #[ORM\Column(type: 'guid')]
     private string $id;
@@ -75,7 +80,8 @@ class Project
             $model->url,
             $model->description,
             $model->status,
-            $model->rssUrl
+            $model->rssUrl,
+            $model->codeUrl
         );
     }
 
@@ -97,6 +103,7 @@ class Project
         $this->description = $model->description;
         $this->status = $model->status;
         $this->rssUrl = $model->rssUrl;
+        $this->codeUrl = $model->codeUrl;
     }
 
     public function getId(): string
@@ -127,6 +134,11 @@ class Project
     public function getRssUrl(): ?string
     {
         return $this->rssUrl;
+    }
+
+    public function getCodeUrl(): ?string
+    {
+        return $this->codeUrl;
     }
 
     public function getStatus(): Status

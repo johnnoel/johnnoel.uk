@@ -1,0 +1,12 @@
+{% if commits is not null %}
+    <h2>Latest commits</h2>
+    <ul>
+        {% for item in rss.channel.item|slice(0, 5) %}
+            <li>
+                <a href="{{ item.link }}">{{ item.title }}</a>
+                <time>{{ item.pubDate }}</time>
+                <p>{{ item.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
