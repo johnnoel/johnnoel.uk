@@ -46,6 +46,7 @@ class ImportProjectHandler implements MessageHandlerInterface
         $model->url = $frontMatter['url'] ?? '';
         $model->alias = $frontMatter['alias'] ?? '';
         $model->rssUrl = $frontMatter['rssUrl'] ?? '';
+        $model->codeUrl = $frontMatter['codeUrl'] ?? '';
         $model->description = $description->getContent();
         $model->status = $status;
 

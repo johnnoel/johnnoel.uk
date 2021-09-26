@@ -25,6 +25,9 @@ class ProjectModel
     #[Assert\Url]
     public ?string $rssUrl = null;
 
+    #[Assert\Url]
+    public ?string $codeUrl = null;
+
     #[Assert\NotBlank]
     public ?Status $status = null;
 }

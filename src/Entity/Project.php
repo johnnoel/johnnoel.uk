@@ -31,6 +31,9 @@ class Project
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $rssUrl;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $codeUrl;
+
     #[ORM\ManyToOne(targetEntity: Status::class)]
     #[ORM\JoinColumn(name: 'status_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     private Status $status;
@@ -41,7 +44,8 @@ class Project
         ?string $url,
         string $description,
         Status $status,
-        ?string $rssUrl = null
+        ?string $rssUrl = null,
+        ?string $codeUrl = null
     ) {
         $this->id = Uuid::uuid4()->toString();
         $this->name = $name;
@@ -50,6 +54,7 @@ class Project
         $this->description = $description;
         $this->status = $status;
         $this->rssUrl = $rssUrl;
+        $this->codeUrl = $codeUrl;
     }
 
     public static function createFromModel(ProjectModel $model): self
