@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Projects{% endblock title %}
+
+{% block body %}
+    <h1>Projects</h1>
+    {% if projects|length > 0 %}
+        <ul>
+            {% for project in projects %}
+                <li><a href="{{ path('project', { 'alias': project.alias }) }}">{{ project.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="message">No projects currently available. Check back later!</p>
+    {% endif %}
+{% endblock body %}
