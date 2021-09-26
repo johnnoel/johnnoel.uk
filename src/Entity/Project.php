@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Form\Model\ProjectModel;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
@@ -49,6 +50,48 @@ class Project
         $this->description = $description;
         $this->status = $status;
         $this->rssUrl = $rssUrl;
+    }
+
+    public static function createFromModel(ProjectModel $model): self
+    {
+        if (
+            $model->name === null ||
+            $model->alias === null ||
+            $model->url === null ||
+            $model->description === null ||
+            $model->status === null
+        ) {
+            throw new \InvalidArgumentException();
+        };
+
+        return new self(
+            $model->name,
+            $model->alias,
+            $model->url,
+            $model->description,
+            $model->status,
+            $model->rssUrl
+        );
+    }
+
+    public function updateFromModel(ProjectModel $model): void
+    {
+        if (
+            $model->name === null ||
+            $model->alias === null ||
+            $model->url === null ||
+            $model->description === null ||
+            $model->status === null
+        ) {
+            throw new \InvalidArgumentException();
+        };
+
+        $this->name = $model->name;
+        $this->alias = $model->alias;
+        $this->url = $model->url;
+        $this->description = $model->description;
+        $this->status = $model->status;
+        $this->rssUrl = $model->rssUrl;
     }
 
     public function getId(): string

@@ -18,13 +18,25 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    public function create(Project $project): void
+    {
+        $this->_em->persist($project);
+        $this->_em->flush();
+    }
+
+    public function update(Project $project): void
+    {
+        $this->_em->persist($project);
+        $this->_em->flush();
+    }
+
     /**
      * @return array<Project>
      */
     public function findAllProjects(): array
     {
         $qb = $this->createQueryBuilder('p');
-        $qb->orderBy('p.name', 'ASC');
+        $qb->orderBy('LOWER(p.name)', 'ASC');
 
         return $qb->getQuery()->getResult();
     }

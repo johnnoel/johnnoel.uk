@@ -20,6 +20,9 @@
     "dealerdirect/phpcodesniffer-composer-installer": {
         "version": "v0.7.1"
     },
+    "dflydev/dot-access-data": {
+        "version": "v3.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -127,8 +130,20 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
     },
+    "league/commonmark": {
+        "version": "2.0.2"
+    },
+    "league/config": {
+        "version": "v1.1.1"
+    },
     "monolog/monolog": {
         "version": "2.2.0"
+    },
+    "nette/schema": {
+        "version": "v1.2.1"
+    },
+    "nette/utils": {
+        "version": "v3.2.5"
     },
     "nikic/php-parser": {
         "version": "v4.10.4"
@@ -204,6 +219,9 @@
     },
     "slevomat/coding-standard": {
         "version": "6.4.1"
+    },
+    "spatie/yaml-front-matter": {
+        "version": "2.0.5"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.6",
