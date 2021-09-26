@@ -43,25 +43,6 @@ class Project
     #[ORM\JoinColumn(name: 'status_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     private Status $status;
 
-    public function __construct(
-        string $name,
-        string $alias,
-        ?string $url,
-        string $description,
-        Status $status,
-        ?string $rssUrl = null,
-        ?string $codeUrl = null
-    ) {
-        $this->id = Uuid::uuid4()->toString();
-        $this->name = $name;
-        $this->alias = $alias;
-        $this->url = $url;
-        $this->description = $description;
-        $this->status = $status;
-        $this->rssUrl = $rssUrl;
-        $this->codeUrl = $codeUrl;
-    }
-
     public static function createFromModel(ProjectModel $model): self
     {
         if (
@@ -83,6 +64,25 @@ class Project
             $model->rssUrl,
             $model->codeUrl
         );
+    }
+
+    public function __construct(
+        string $name,
+        string $alias,
+        ?string $url,
+        string $description,
+        Status $status,
+        ?string $rssUrl = null,
+        ?string $codeUrl = null
+    ) {
+        $this->id = Uuid::uuid4()->toString();
+        $this->name = $name;
+        $this->alias = $alias;
+        $this->url = $url;
+        $this->description = $description;
+        $this->status = $status;
+        $this->rssUrl = $rssUrl;
+        $this->codeUrl = $codeUrl;
     }
 
     public function updateFromModel(ProjectModel $model): void

@@ -15,7 +15,7 @@ class FetchProjectCodeCommitsHandler implements MessageHandlerInterface
     {
     }
 
-    public function __invoke(FetchProjectCodeCommits $fetchProjectCodeCommits)
+    public function __invoke(FetchProjectCodeCommits $fetchProjectCodeCommits): void
     {
         $project = $fetchProjectCodeCommits->getProject();
 

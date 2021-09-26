@@ -7,7 +7,6 @@ namespace App\Exception;
 use Exception;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Throwable;
 
 class InvalidProjectException extends Exception
 {
