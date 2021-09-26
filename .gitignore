@@ -2,6 +2,7 @@
 /node_modules/
 /public/assets/*
 !/public/assets/manifest.json
+/public/projects/
 
 ###> symfony/framework-bundle ###
 /.env.local

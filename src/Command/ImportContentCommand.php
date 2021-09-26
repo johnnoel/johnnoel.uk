@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Import\ProjectImportResult;
+use App\Import\ProjectScreenshotResult;
 use App\Message\ImportProject;
+use App\Message\TakeProjectScreenshot;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\Console\Command\Command;
@@ -74,6 +76,19 @@ class ImportContentCommand extends Command
                 $file->getPathname(),
                 ($importResult->isNew()) ? 'Created a new project' : 'Updated existing project'
             ));
+
+            $project = $importResult->getProject();
+
+            /** @var ProjectScreenshotResult $screenshotResult */
+            $screenshotResult = $this->handle(new TakeProjectScreenshot($project));
+
+            if ($screenshotResult->isSuccessful()) {
+                $io->writeln(sprintf(
+                    'Took screenshot of <info>%s</info> and saved to <info>%s</info>',
+                    $project->getUrl(),
+                    $screenshotResult->getScreenshotPath()
+                ));
+            }
         }
 
         return self::SUCCESS;
