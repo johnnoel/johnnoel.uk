@@ -58,6 +58,7 @@ jobs:
         steps:
             - attach_workspace:
                   at: /tmp
+            - run: sudo apt-get update && sudo apt-get install -y php8.0-sqlite3
             - run: mkdir -p /tmp/johnnoel-uk/var/db && touch /tmp/johnnoel-uk/var/db/db_test.sqlite3
             - run: bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
             - run: bin/phpunit --stop-on-failure --log-junit junitreport.xml
@@ -75,9 +76,11 @@ jobs:
         steps:
             - attach_workspace:
                   at: /tmp
+            - run: sudo apt-get update && sudo apt-get install -y php8.0-sqlite3
             - run: npm run prod --prefix /tmp/johnnoel-uk
             - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
             - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
+            - run: mkdir -p /tmp/johnnoel-uk/var/db && touch /tmp/johnnoel-uk/var/db/db.sqlite3
             - run: /tmp/johnnoel-uk/bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
             - run: /tmp/johnnoel-uk/bin/console app:import-content /tmp/johnnoel-uk/content
             - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
