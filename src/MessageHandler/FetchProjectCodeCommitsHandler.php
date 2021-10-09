@@ -49,6 +49,11 @@ class FetchProjectCodeCommitsHandler implements MessageHandlerInterface
     private function getGithubUsernameAndRepoName(string $url): array
     {
         $urlPath = parse_url($url, PHP_URL_PATH);
+
+        if (!is_string($urlPath)) {
+            throw new \InvalidArgumentException('$url "' . $url . '" could not be parsed');
+        }
+
         [ $username, $repo ] = explode('/', trim($urlPath, '/'), 2);
 
         // todo check to see if the repo ends in .git or if it has any other parts
