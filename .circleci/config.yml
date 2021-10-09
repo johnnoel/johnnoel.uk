@@ -77,7 +77,7 @@ jobs:
             - run: npm run prod --prefix /tmp/johnnoel-uk
             - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
             - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
-            - run: bin/console app:import-content content
+            - run: php /tmp/johnnoel-uk/bin/console app:import-content /tmp/johnnoel-uk/content
             - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
             - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
             - store_artifacts:
