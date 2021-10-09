@@ -51,7 +51,7 @@ jobs:
     test:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: johnnoel/php:8.0-cli
+            - image: cimg/php:8.0
               environment:
                   APP_ENV: test
                   DATABASE_URL: sqlite:////tmp/johnnoel-uk/var/db/db_test.sqlite3
@@ -71,13 +71,15 @@ jobs:
               environment:
                   NODE_ENV: production
                   APP_ENV: prod
+                  DATABASE_URL: sqlite:////tmp/johnnoel-uk/var/db/db.sqlite3
         steps:
             - attach_workspace:
                   at: /tmp
             - run: npm run prod --prefix /tmp/johnnoel-uk
             - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
             - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
-            - run: php /tmp/johnnoel-uk/bin/console app:import-content /tmp/johnnoel-uk/content
+            - run: /tmp/johnnoel-uk/bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+            - run: /tmp/johnnoel-uk/bin/console app:import-content /tmp/johnnoel-uk/content
             - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
             - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
             - store_artifacts:
