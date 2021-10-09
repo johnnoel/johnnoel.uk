@@ -76,7 +76,7 @@ jobs:
         steps:
             - attach_workspace:
                   at: /tmp
-            - run: sudo apt-get update && sudo apt-get install -y php8.0-sqlite3
+            - run: sudo apt-get update && sudo apt-get install -y php8.0-sqlite3 firefox-geckodriver
             - run: npm run prod --prefix /tmp/johnnoel-uk
             - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
             - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
