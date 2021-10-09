@@ -83,6 +83,7 @@ class ProjectsController extends AbstractController
 
         return $this->render('_project_rss.html.twig', [
             'rss' => $rss,
+            'project' => $project,
         ]);
     }
 
@@ -96,6 +97,7 @@ class ProjectsController extends AbstractController
 
         return $this->render('_project_code_commits.html.twig', [
             'commits' => $commits,
+            'project' => $project,
         ]);
     }
 }

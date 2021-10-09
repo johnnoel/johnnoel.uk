@@ -1,22 +1,19 @@
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/brands";
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/brands';
 @import 'reset';
+@import 'home';
+@import 'projects';
 
 $colour-highlight: #D54000;
+$colour-border: #DDD;
 
 body {
     font: 400 22px/1.35 Karla, sans-serif;
     color: #222;
 }
 
-main {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
 
 h1 {
     font: 900 56px/1.0 Rubik, sans-serif;
@@ -38,6 +35,33 @@ h1 {
 
         &:hover, &:focus {
             text-decoration: underline;
+        }
+    }
+}
+
+.sitenav {
+    margin: 20px 0 0;
+    padding: 20px 0;
+    border-top: 1px solid $colour-border;
+    border-bottom: 1px solid $colour-border;
+    line-height: 1;
+
+        ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    a {
+        display: inline-block;
+        text-decoration: none;
+        background: #222;
+        color: #FFF;
+        padding: 5px 8px;
+        transition: background-color .05s ease-in-out;
+
+        &:hover, &:focus {
+            background-color: $colour-highlight;
         }
     }
 }
@@ -67,7 +91,7 @@ h1 {
         &::before {
             font-size: 32px;
             color: #222;
-            transition: color .15s ease-in-out;
+            transition: color .05s ease-in-out;
         }
 
         &:hover::before {
@@ -129,5 +153,28 @@ h1 {
     &-active {
         background: $colour-highlight;
         color: #FFF;
+    }
+}
+
+.backto {
+    float: right;
+    font-size: 18px;
+    padding: 20px 0 0;
+
+    a {
+        text-decoration: none;
+        color: #777;
+
+        &::before {
+            content: '→ ';
+        }
+
+        &:hover, &:focus {
+            text-decoration: underline;
+        }
+
+        & + a {
+            margin: 0 0 0 10px;
+        }
     }
 }

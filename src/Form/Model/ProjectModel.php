@@ -19,7 +19,6 @@ class ProjectModel
     #[Assert\Url]
     public ?string $url = null;
 
-    #[Assert\NotBlank]
     public ?string $description = null;
 
     #[Assert\Url]

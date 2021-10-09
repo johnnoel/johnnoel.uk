@@ -1,29 +1,46 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ project.name }} : Projects{% endblock title %}
+{% block title %}{{ project.name }} : {% trans %}projects{% endtrans %}{% endblock title %}
 
 {% block body %}
-    <h1>{{ project.name }}</h1>
-    {% if project.screenshot is not null %}
-        <img src="{{ project.screenshot }}" alt="">
-    {% endif %}
-
-    <dl>
-        {% if project.url is not empty %}
-            <dt>URL:</dt>
-            <dd><a href="{{ project.url }}">{{ project.url }}</a></dd>
+    <article class="project">
+        {% if project.screenshot is not null %}
+            <img src="{{ project.screenshot }}" alt="" class="project-image">
         {% endif %}
-        <dt>Status:</dt>
-        <dd>{{ project.status.name }}</dd>
-    </dl>
+        <nav role="navigation" class="backto">
+            <a href="{{ path('projects') }}">{% trans %}back_to_projects{% endtrans %}</a>
+            <a href="{{ path('home') }}">{% trans %}back_to_home{% endtrans %}</a>
+        </nav>
+        <h1 class="project-title">{{ project.name }}</h1>
 
-    {% if project.rssUrl is not empty %}
-        {{ render(controller('App\\Controller\\ProjectsController::rssFragment', { 'project': project })) }}
-    {% endif %}
+        <div class="project-details">
+            <div class="project-detail">
+                <h2 class="project-subtitle">{% trans %}status{% endtrans %}</h2>
+                <span class="project-status">{{ project.status.name }}</span>
+            </div>
 
-    {% if project.codeUrl is not empty %}
-        Code code code
-        {{ render(controller('App\\Controller\\ProjectsController::codeFragment', { 'project': project })) }}
-    {% endif %}
+            <div class="project-detail">
+                {% if project.url is not empty %}
+                    <h2 class="project-subtitle">{% trans %}url{% endtrans %}</h2>
+                    <a href="{{ project.url }}" class="project-url" target="_blank">{{ project.url }}<span class="sr-only"> (will open in a new window)</span></a>
+                {% endif %}
+            </div>
+        </div>
 
-    {{ project.description|raw }}
+        {% if project.description is not empty %}
+            <h2 class="project-subtitle">{% trans %}description{% endtrans %}</h2>
+            {{ project.description|raw }}
+        {% endif %}
+
+        {% if project.rssUrl is not empty or project.codeUrl is not empty %}
+            <div class="project-feeds{% if project.rssUrl is empty or project.codeUrl is empty %} project-feeds-single{% endif %}">
+                {% if project.rssUrl is not empty %}
+                    {{ render(controller('App\\Controller\\ProjectsController::rssFragment', { 'project': project })) }}
+                {% endif %}
+
+                {% if project.codeUrl is not empty %}
+                    {{ render(controller('App\\Controller\\ProjectsController::codeFragment', { 'project': project })) }}
+                {% endif %}
+            </div>
+        {% endif %}
+    </article>
 {% endblock body %}

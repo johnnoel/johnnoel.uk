@@ -32,7 +32,7 @@ class Project
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $url;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]

@@ -1,3 +1,15 @@
 name: John Noel
 build_web_things: I build things for the web
+select_site_language: Select the site language
 currently_selected: currently selected
+all_the_code: All the code for this site
+back_to_home: Back to home
+back_to_projects: Back to projects
+projects: Projects
+no_projects_available: No projects currently available. Check back later!
+site_navigation: Site navigation
+status: Status
+url: URL
+description: Description
+latest_posts: Latest posts
+latest_commits: Latest commits
