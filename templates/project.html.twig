@@ -16,11 +16,12 @@
         <dd>{{ project.status.name }}</dd>
     </dl>
 
-    {% if project.rssUrl is not null %}
+    {% if project.rssUrl is not empty %}
         {{ render(controller('App\\Controller\\ProjectsController::rssFragment', { 'project': project })) }}
     {% endif %}
 
-    {% if project.codeUrl is not null %}
+    {% if project.codeUrl is not empty %}
+        Code code code
         {{ render(controller('App\\Controller\\ProjectsController::codeFragment', { 'project': project })) }}
     {% endif %}
 

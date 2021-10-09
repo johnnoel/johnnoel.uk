@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\StatusRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 
 #[ORM\Entity(repositoryClass: StatusRepository::class)]
@@ -14,6 +15,7 @@ class Status
 {
     #[ORM\Id]
     #[ORM\Column(type: 'guid')]
+    #[Serializer\Exclude]
     private string $id;
 
     #[ORM\Column(type: 'string', length: 32)]

@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Form\Model\ProjectModel;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -19,6 +20,7 @@ class Project
 
     #[ORM\Id]
     #[ORM\Column(type: 'guid')]
+    #[Serializer\Exclude]
     private string $id;
 
     #[ORM\Column(type: 'string', length: 255)]

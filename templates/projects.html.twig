@@ -6,7 +6,10 @@
     {% if projects|length > 0 %}
         <ul>
             {% for project in projects %}
-                <li><a href="{{ path('project', { 'alias': project.alias }) }}">{{ project.name }}</a></li>
+                <li>
+                    <a href="{{ path('project', { 'alias': project.alias }) }}">{{ project.name }}</a>
+                    {{ project.status.name }}
+                </li>
             {% endfor %}
         </ul>
     {% else %}

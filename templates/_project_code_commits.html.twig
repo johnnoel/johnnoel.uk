@@ -1,11 +1,13 @@
 {% if commits is not null %}
     <h2>Latest commits</h2>
     <ul>
-        {% for item in rss.channel.item|slice(0, 5) %}
+        {% for commit in commits|slice(0, 10) %}
             <li>
-                <a href="{{ item.link }}">{{ item.title }}</a>
-                <time>{{ item.pubDate }}</time>
-                <p>{{ item.description }}</p>
+                <a href="{{ commit.html_url }}">
+                    <time datetime="{{ commit.commit.author.date }}">{{ commit.commit.author.date|date('d/m/Y H:i', 'Europe/London') }}</time>
+                </a>
+                {{ commit.commit.message }}
+                [{{ commit.commit.author.name }}]
             </li>
         {% endfor %}
     </ul>
