@@ -1,0 +1,7 @@
+{% if uptime is not null %}
+    <div class="project-feed project-rss">
+        <h2 class="project-feed-title">{% trans %}uptime{% endtrans %}</h2>
+        Last downtime was:
+        <time datetime="{{ uptime.monitors[0].logs[0].datetime|date('Y-m-d\\TH:i:sP') }}" class="js-relative">{{ uptime.monitors[0].logs[0].datetime|time_diff }}</time>
+    </div>
+{% endif %}

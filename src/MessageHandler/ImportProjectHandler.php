@@ -45,8 +45,10 @@ class ImportProjectHandler implements MessageHandlerInterface
         $model->name = $frontMatter['name'] ?? '';
         $model->url = $frontMatter['url'] ?? '';
         $model->alias = $frontMatter['alias'] ?? '';
-        $model->rssUrl = $frontMatter['rssUrl'] ?? '';
-        $model->codeUrl = $frontMatter['codeUrl'] ?? '';
+        $model->rssUrl = $frontMatter['rssUrl'] ?? null;
+        $model->codeUrl = $frontMatter['codeUrl'] ?? null;
+        $model->uptimeRobotId = (array_key_exists('uptimeRobotId', $frontMatter)) ?
+            (string)$frontMatter['uptimeRobotId'] : null;
         $model->description = $description->getContent();
         $model->status = $status;
 

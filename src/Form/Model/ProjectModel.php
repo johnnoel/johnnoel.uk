@@ -27,6 +27,9 @@ class ProjectModel
     #[Assert\Url]
     public ?string $codeUrl = null;
 
+    #[Assert\Regex('/^\d+$/')]
+    public ?string $uptimeRobotId = null;
+
     #[Assert\NotBlank]
     public ?Status $status = null;
 }

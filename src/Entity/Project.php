@@ -41,6 +41,9 @@ class Project
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $codeUrl;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $uptimeRobotId;
+
     #[ORM\ManyToOne(targetEntity: Status::class)]
     #[ORM\JoinColumn(name: 'status_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     private Status $status;
@@ -64,7 +67,8 @@ class Project
             $model->description,
             $model->status,
             $model->rssUrl,
-            $model->codeUrl
+            $model->codeUrl,
+            $model->uptimeRobotId
         );
     }
 
@@ -75,7 +79,8 @@ class Project
         string $description,
         Status $status,
         ?string $rssUrl = null,
-        ?string $codeUrl = null
+        ?string $codeUrl = null,
+        ?string $uptimeRobotId = null
     ) {
         $this->id = Uuid::uuid4()->toString();
         $this->name = $name;
@@ -85,6 +90,7 @@ class Project
         $this->status = $status;
         $this->rssUrl = $rssUrl;
         $this->codeUrl = $codeUrl;
+        $this->uptimeRobotId = $uptimeRobotId;
     }
 
     public function updateFromModel(ProjectModel $model): void
@@ -106,6 +112,7 @@ class Project
         $this->status = $model->status;
         $this->rssUrl = $model->rssUrl;
         $this->codeUrl = $model->codeUrl;
+        $this->uptimeRobotId = $model->uptimeRobotId;
     }
 
     public function getId(): string
@@ -141,6 +148,11 @@ class Project
     public function getCodeUrl(): ?string
     {
         return $this->codeUrl;
+    }
+
+    public function getUptimeRobotId(): ?string
+    {
+        return $this->uptimeRobotId;
     }
 
     public function getStatus(): Status

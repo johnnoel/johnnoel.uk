@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "500446089d2152779dded7e22e703865",
+    "content-hash": "091825821fde87e974b472d3e463770e",
     "packages": [
         {
             "name": "brick/math",
@@ -2846,6 +2846,61 @@
                 }
             ],
             "time": "2021-10-01T21:08:31+00:00"
+        },
+        {
+            "name": "mpratt/relativetime",
+            "version": "1.5.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpratt/RelativeTime.git",
+                "reference": "44c9fee1e615d3aeca1d8bec6dbd49dd674bce91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpratt/RelativeTime/zipball/44c9fee1e615d3aeca1d8bec6dbd49dd674bce91",
+                "reference": "44c9fee1e615d3aeca1d8bec6dbd49dd674bce91",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "RelativeTime": "Lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Pratt",
+                    "email": "pratt@hablarmierda.net",
+                    "homepage": "http://www.michael-pratt.com",
+                    "role": "Author/Developer"
+                }
+            ],
+            "description": "A library that calculates the time difference between two dates and returns the result in words (Example: 5 minutes ago or 5 Minutes left). The library supports other languages aswell like Spanish and German.",
+            "homepage": "https://github.com/mpratt/RelativeTime",
+            "keywords": [
+                "ago",
+                "date",
+                "future",
+                "interval",
+                "relative",
+                "time",
+                "time-ago"
+            ],
+            "support": {
+                "issues": "https://github.com/mpratt/RelativeTime/issues",
+                "source": "https://github.com/mpratt/RelativeTime/tree/1.5.9"
+            },
+            "time": "2021-08-18T00:31:38+00:00"
         },
         {
             "name": "nette/schema",

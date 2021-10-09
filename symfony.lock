@@ -177,6 +177,9 @@
     "monolog/monolog": {
         "version": "2.2.0"
     },
+    "mpratt/relativetime": {
+        "version": "1.5.9"
+    },
     "nette/schema": {
         "version": "v1.2.1"
     },

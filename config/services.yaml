@@ -17,6 +17,10 @@ services:
         arguments:
             $contactAddress: '%env(CONTACT_ADDRESS)%'
 
+    App\MessageHandler\FetchProjectUptimeHandler:
+        arguments:
+            $uptimeRobotApiKey: '%env(UPTIME_ROBOT_API_KEY)%'
+
     App\Validator\HCaptchaValidator:
         arguments:
             $secretKey: '%env(HCAPTCHA_SECRET_KEY)%'

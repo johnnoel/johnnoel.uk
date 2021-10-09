@@ -19,6 +19,7 @@
         "jms/serializer-bundle": "^3.10",
         "knplabs/github-api": "dev-master",
         "league/commonmark": "^2.0",
+        "mpratt/relativetime": "^1.5",
         "phpdocumentor/reflection-docblock": "^5.2",
         "ramsey/uuid": "^4.1",
         "sensio/framework-extra-bundle": "^6.2",

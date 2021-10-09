@@ -40,6 +40,10 @@
                 {% if project.codeUrl is not empty %}
                     {{ render(controller('App\\Controller\\ProjectsController::codeFragment', { 'project': project })) }}
                 {% endif %}
+
+                {% if project.uptimeRobotId is not empty %}
+                    {{ render(controller('App\\Controller\\ProjectsController::uptimeFragment', { 'project': project })) }}
+                {% endif %}
             </div>
         {% endif %}
     </article>

@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Message\FetchProjectCodeCommits;
 use App\Message\FetchProjectRss;
+use App\Message\FetchProjectUptime;
 use App\Repository\ProjectRepository;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -98,6 +99,19 @@ class ProjectsController extends AbstractController
         return $this->render('_project_code_commits.html.twig', [
             'commits' => $commits,
             'project' => $project,
+        ]);
+    }
+
+    public function uptimeFragment(Project $project): Response
+    {
+        if ($project->getUptimeRobotId() === null || $project->getUptimeRobotId() === '') {
+            return new Response('');
+        }
+
+        $uptime = $this->handle(new FetchProjectUptime($project));
+
+        return $this->render('_project_uptime.html.twig', [
+            'uptime' => $uptime,
         ]);
     }
 }
