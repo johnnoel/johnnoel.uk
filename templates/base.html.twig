@@ -2,23 +2,29 @@
 <html lang="{{ app.request.locale }}" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>johnnoel.uk</title>
+    <title>{% block title %}{% endblock %}{% if block('title') is not empty %} : {% endif %}{% trans %}name{% endtrans %}</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
 
     <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,700;1,400&family=Rubik:wght@700;900&display=swap" rel="stylesheet">
     <link href="{{ asset('main.css') }}" rel="stylesheet">
 </head>
 <body>
-<nav role="navigation" class="selectlang">
-    <h5 class="selectlang-title">Select the site language</h5>
-    <a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'en' }) }}" class="selectlang-lang{% if app.request.locale == 'en' %} selectlang-active{% endif %}">English{% if app.request.locale == 'en' %} <span class="sr-only">({% trans %}currently_selected{% endtrans %})</span>{% endif %}</a>
-    <a href="{{ path(app.request.attributes.get('_route'), { '_locale': 'ja' }) }}" class="selectlang-lang{% if app.request.locale == 'ja' %} selectlang-active{% endif %}">日本語{% if app.request.locale == 'ja' %} <span class="sr-only">({% trans %}currently_selected{% endtrans %})</span>{% endif %}</a>
-</nav>
-{% block body %}{% endblock body %}
+{% if show_language_selector %}
+    <nav role="navigation" class="selectlang">
+        <h5 class="selectlang-title">{% trans %}select_site_language{% endtrans %}</h5>
+        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ '_locale': 'en' })) }}" class="selectlang-lang{% if app.request.locale == 'en' %} selectlang-active{% endif %}">English{% if app.request.locale == 'en' %} <span class="sr-only">({% trans %}currently_selected{% endtrans %})</span>{% endif %}</a>
+        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ '_locale': 'ja' })) }}" class="selectlang-lang{% if app.request.locale == 'ja' %} selectlang-active{% endif %}">日本語{% if app.request.locale == 'ja' %} <span class="sr-only">({% trans %}currently_selected{% endtrans %})</span>{% endif %}</a>
+    </nav>
+{% endif %}
+
+<main role="main">
+    {% block body %}{% endblock body %}
+</main>
 
 <nav role="navigation" class="sitecode">
-    <a href="https://github.com/johnnoel/johnnoel.uk" target="_blank" rel="noreferrer noopener">All the code for this site</a>
+    <a href="https://github.com/johnnoel/johnnoel.uk" target="_blank" rel="noreferrer noopener">{% trans %}all_the_code{% endtrans %}</a>
 </nav>
+
 <script src="{{ asset('main.js') }}" async defer></script>
 {% block javascripts %}{% endblock javascripts %}
 </body>

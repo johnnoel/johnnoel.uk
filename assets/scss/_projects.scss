@@ -1,0 +1,133 @@
+.projects {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.projectlist {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0 0;
+}
+
+.projectlist-project {
+    a {
+        text-decoration: none;
+
+        &:hover, &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    &-thumb {
+        display: block;
+        margin: 0 0 10px;
+    }
+
+    &-title {
+        font-size: 22px;
+        line-height: 1.1;
+        color: #222;
+        margin: 0 0 10px;
+    }
+
+    &-status {
+        font-size: 18px;
+        display: inline-block;
+        background: #DDD;
+        line-height: 1;
+        color: #222;
+        padding: 4px 6px;
+    }
+}
+
+.project {
+    max-width: 840px;
+    margin: 65px auto 0;
+    padding: 0 0 100px;
+
+    &-image {
+        display: block;
+        padding: 2px;
+        border: 1px solid #DDD;
+        margin: 0 0 20px;
+    }
+
+    &-title {
+        font-size: 36px;
+        margin: 0 0 20px;
+    }
+
+    &-subtitle {
+        font-size: 22px;
+    }
+
+    &-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 0 0 20px;
+    }
+
+    &-feeds {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 40px 0 0;
+
+        &.project-feeds-single {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &-feed-title {
+        font-size: 28px;
+        margin: 0 0 10px;
+
+        .socials-icon::before {
+            font-size: 28px;
+            margin-left: 10px;
+        }
+    }
+
+    .backto {
+        padding-top: 8px;
+    }
+}
+
+.rss, .commits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &-datetime {
+        font-size: 18px;
+        color: #777;
+    }
+}
+
+.rss {
+    &-item {
+        margin: 0 0 10px;
+    }
+
+    &-title {
+        font-size: 20px;
+    }
+
+    &-description {
+        font-size: 20px;
+    }
+}
+
+.commits {
+    &-commit {
+        margin: 0 0 10px;
+    }
+
+    &-message {
+        font-size: 20px;
+    }
+}

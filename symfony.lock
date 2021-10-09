@@ -2,17 +2,29 @@
     "brick/math": {
         "version": "0.9.2"
     },
+    "clue/stream-filter": {
+        "version": "v1.5.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
+    },
+    "dama/doctrine-test-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
     },
     "dealerdirect/phpcodesniffer-composer-installer": {
         "version": "v0.7.1"
     },
-    "deployer/deployer": {
-        "version": "v6.8.0"
-    },
-    "deployer/phar-update": {
-        "version": "v2.2.0"
+    "dflydev/dot-access-data": {
+        "version": "v3.0.1"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -97,6 +109,9 @@
     "egulias/email-validator": {
         "version": "2.1.25"
     },
+    "fakerphp/faker": {
+        "version": "v1.16.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
@@ -109,6 +124,41 @@
     "guzzlehttp/psr7": {
         "version": "1.7.0"
     },
+    "http-interop/http-factory-guzzle": {
+        "version": "1.2.0"
+    },
+    "jms/metadata": {
+        "version": "2.5.1"
+    },
+    "jms/serializer": {
+        "version": "3.14.0"
+    },
+    "jms/serializer-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "384cec52df45f3bfd46a09930d6960a58872b268"
+        },
+        "files": [
+            "config/packages/dev/jms_serializer.yaml",
+            "config/packages/jms_serializer.yaml",
+            "config/packages/prod/jms_serializer.yaml"
+        ]
+    },
+    "knplabs/github-api": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.6",
+            "ref": "a7d5781e4a8e84f1c238c43e4c9bb806f01d8a3f"
+        },
+        "files": [
+            "config/packages/github_api.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.0.0"
     },
@@ -118,11 +168,50 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
     },
+    "league/commonmark": {
+        "version": "2.0.2"
+    },
+    "league/config": {
+        "version": "v1.1.1"
+    },
     "monolog/monolog": {
         "version": "2.2.0"
     },
+    "nette/schema": {
+        "version": "v1.2.1"
+    },
+    "nette/utils": {
+        "version": "v3.2.5"
+    },
     "nikic/php-parser": {
         "version": "v4.10.4"
+    },
+    "php-http/cache-plugin": {
+        "version": "1.7.2"
+    },
+    "php-http/client-common": {
+        "version": "2.4.0"
+    },
+    "php-http/discovery": {
+        "version": "1.14.1"
+    },
+    "php-http/httplug": {
+        "version": "2.2.0"
+    },
+    "php-http/message": {
+        "version": "1.12.0"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/multipart-stream-builder": {
+        "version": "1.2.0"
+    },
+    "php-http/promise": {
+        "version": "1.1.0"
+    },
+    "php-webdriver/webdriver": {
+        "version": "1.11.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -140,16 +229,13 @@
         "version": "0.4.9"
     },
     "phpstan/phpstan": {
-        "version": "0.12.78"
+        "version": "0.12.99"
     },
     "phpstan/phpstan-doctrine": {
-        "version": "0.12.32"
+        "version": "0.12.44"
     },
     "phpstan/phpstan-symfony": {
-        "version": "0.12.20"
-    },
-    "pimple/pimple": {
-        "version": "v3.3.1"
+        "version": "0.12.44"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -198,6 +284,9 @@
     },
     "slevomat/coding-standard": {
         "version": "6.4.1"
+    },
+    "spatie/yaml-front-matter": {
+        "version": "2.0.5"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.6",
@@ -416,6 +505,15 @@
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
+    "symfony/panther": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "877d853a05c6713665a2f4b954734592680abff6"
+        }
+    },
     "symfony/password-hasher": {
         "version": "v5.3.7"
     },
@@ -628,5 +726,21 @@
     },
     "willdurand/negotiation": {
         "version": "3.0.0"
+    },
+    "zenstruck/callback": {
+        "version": "v1.4.0"
+    },
+    "zenstruck/foundry": {
+        "version": "1.9",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.9",
+            "ref": "26a9e6291d5fc0bfd1d673bc1d6cfe3c582c7678"
+        },
+        "files": [
+            "config/packages/dev/zenstruck_foundry.yaml",
+            "config/packages/test/zenstruck_foundry.yaml"
+        ]
     }
 }

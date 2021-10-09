@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% trans %}projects{% endtrans %}{% endblock title %}
+
+{% block body %}
+    <div class="projects">
+        <nav role="navigation" class="backto">
+            <a href="{{ path('home') }}">{% trans %}back_to_home{% endtrans %}</a>
+        </nav>
+
+        <h1>{% trans %}projects{% endtrans %}</h1>
+        {% if projects|length > 0 %}
+            <div class="projectlist">
+                {% for project in projects %}
+                    <article class="projectlist-project">
+                        <a href="{{ path('project', { 'alias': project.alias }) }}">
+                            <img src="http://lorempixel.com/400/200/abstract/{{ loop.index }}" alt="" class="projectlist-project-thumb">
+                            <h2 class="projectlist-project-title">{{ project.name }}</h2>
+                            <span class="projectlist-project-status"><span class="sr-only">Status: </span>{{ project.status.name }}</span>
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="message">{% trans %}no_projects_available{% endtrans %}</p>
+        {% endif %}
+{% endblock body %}

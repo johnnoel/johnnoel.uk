@@ -3,7 +3,7 @@ jobs:
     install:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: circleci/php:8.0-cli-node
+            - image: cimg/php:8.0-node
         steps:
             - checkout
             - run: sudo composer self-update
@@ -33,7 +33,7 @@ jobs:
     coding-standards:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: circleci/php:8.0-cli
+            - image: cimg/php:8.0
         steps:
             - attach_workspace:
                   at: /tmp
@@ -42,7 +42,7 @@ jobs:
     static-analysis:
         working_directory: /tmp/johnnoel-uk
         docker:
-            - image: circleci/php:8.0-cli
+            - image: cimg/php:8.0
         steps:
             - attach_workspace:
                   at: /tmp
@@ -54,15 +54,11 @@ jobs:
             - image: johnnoel/php:8.0-cli
               environment:
                   APP_ENV: test
-                  DATABASE_URL: postgresql://johnnoel-uk:johnnoel-uk@localhost/johnnoel-uk-test?serverVersion=13&charset=utf8
-            - image: circleci/postgres:13-ram
-              environment:
-                  POSTGRES_USER: johnnoel-uk
-                  POSTGRES_PASSWORD: johnnoel-uk
-                  POSTGRES_DB: johnnoel-uk-test
+                  DATABASE_URL: sqlite:////tmp/johnnoel-uk/var/db/db_test.sqlite3
         steps:
             - attach_workspace:
                   at: /tmp
+            - run: mkdir -p /tmp/johnnoel-uk/var/db && touch /tmp/johnnoel-uk/var/db/db_test.sqlite3
             - run: bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
             - run: bin/phpunit --stop-on-failure --log-junit junitreport.xml
             - store_test_results:
@@ -71,7 +67,7 @@ jobs:
     build:
         working_directory: /tmp
         docker:
-            - image: circleci/php:8.0-cli-node
+            - image: cimg/php:8.0-browsers
               environment:
                   NODE_ENV: production
                   APP_ENV: prod
@@ -81,6 +77,7 @@ jobs:
             - run: npm run prod --prefix /tmp/johnnoel-uk
             - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
             - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
+            - run: bin/console app:import-content content
             - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
             - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
             - store_artifacts:
