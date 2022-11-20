@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 argument('artifact_url', InputArgument::REQUIRED, 'The URL to get build artifacts from');
 argument('circleci_token', InputArgument::REQUIRED, 'The personal Circle CI API token to use');
 
-require 'recipe/symfony4.php';
+require 'recipe/common.php';
 
 set('application', 'johnnoel.uk');
 set('repository', 'git@github.com:johnnoel/johnnoel.uk.git');
@@ -46,9 +46,21 @@ task('deploy:update_code', function () {
     run('wget -qO johnnoel-uk.tar.bz2 ' . $url);
     run('tar xjf johnnoel-uk.tar.bz2 -C {{release_path}}');
 });
-task('deploy:vendors', function () { });
 
 after('deploy:failed', 'deploy:unlock');
 
-// Migrate database before symlink new release.
-//before('deploy:symlink', 'database:migrate');
+desc('Deploy project');
+task('deploy', [
+    'deploy:info',
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    'deploy:writable',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
+]);
+
+after('deploy', 'success');

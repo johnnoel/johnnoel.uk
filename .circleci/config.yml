@@ -1,89 +1,12 @@
 version: 2.1
 jobs:
-    install:
-        working_directory: /tmp/johnnoel-uk
-        docker:
-            - image: cimg/php:8.0-node
-        steps:
-            - checkout
-            - run: sudo composer self-update
-            - restore_cache:
-                  keys:
-                      - composer-v1-{{ checksum "composer.lock" }}
-                      - composer-v1-
-            - restore_cache:
-                  keys:
-                      - npm-v1-{{ checksum "package-lock.json" }}
-                      - npm-v1-
-            - run: composer install --no-interaction --no-progress --ignore-platform-req=php
-            - run: npm install
-            - save_cache:
-                  key: composer-v1-{{ checksum "composer.lock" }}
-                  paths:
-                      - vendor
-            - save_cache:
-                  key: npm-v1-{{ checksum "package-lock.json" }}
-                  paths:
-                      - node_modules
-            - persist_to_workspace:
-                  root: /tmp/
-                  paths:
-                      - johnnoel-uk
-
-    coding-standards:
-        working_directory: /tmp/johnnoel-uk
-        docker:
-            - image: cimg/php:8.0
-        steps:
-            - attach_workspace:
-                  at: /tmp
-            - run: vendor/bin/phpcs -n src
-
-    static-analysis:
-        working_directory: /tmp/johnnoel-uk
-        docker:
-            - image: cimg/php:8.0
-        steps:
-            - attach_workspace:
-                  at: /tmp
-            - run: php -d memory_limit=512M vendor/bin/phpstan analyse
-
-    test:
-        working_directory: /tmp/johnnoel-uk
-        docker:
-            - image: cimg/php:8.0
-              environment:
-                  APP_ENV: test
-                  DATABASE_URL: sqlite:////tmp/johnnoel-uk/var/db/db_test.sqlite3
-        steps:
-            - attach_workspace:
-                  at: /tmp
-            - run: sudo apt-get update && sudo apt-get install -y php8.0-sqlite3
-            - run: mkdir -p /tmp/johnnoel-uk/var/db && touch /tmp/johnnoel-uk/var/db/db_test.sqlite3
-            - run: bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-            - run: bin/phpunit --stop-on-failure --log-junit junitreport.xml
-            - store_test_results:
-                  path: /tmp/johnnoel-uk/junitreport.xml
-
     build:
         working_directory: /tmp
         docker:
-            - image: cimg/php:8.0-browsers
-              environment:
-                  NODE_ENV: production
-                  APP_ENV: prod
-                  DATABASE_URL: sqlite:////tmp/johnnoel-uk/var/db/db.sqlite3
+            - image: cimg/base
         steps:
             - attach_workspace:
                   at: /tmp
-            - run: sudo apt-get update && sudo apt-get install -y php8.0-sqlite3 firefox-geckodriver
-            - run: npm run prod --prefix /tmp/johnnoel-uk
-            - run: composer install --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --no-progress --no-scripts
-            - run: composer dump-autoload --working-dir /tmp/johnnoel-uk --no-interaction --no-dev --optimize
-            - run: mkdir -p /tmp/johnnoel-uk/var/db && touch /tmp/johnnoel-uk/var/db/db.sqlite3
-            - run: /tmp/johnnoel-uk/bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-            - run: /tmp/johnnoel-uk/bin/console app:import-content /tmp/johnnoel-uk/content
-            - run: rm -rf /tmp/johnnoel-uk/node_modules /tmp/johnnoel-uk/var/log/* /tmp/johnnoel-uk/var/cache/*
             - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
             - store_artifacts:
                   path: /tmp/johnnoel-uk.tar.bz2
@@ -109,21 +32,7 @@ workflows:
     version: 2
     install-and-test:
         jobs:
-            - install
-            - coding-standards:
-                  requires:
-                      - install
-            - static-analysis:
-                  requires:
-                      - install
-            - test:
-                  requires:
-                      - install
             - build:
-                  requires:
-                      - coding-standards
-                      - static-analysis
-                      - test
                   filters:
                       branches:
                           only: main

@@ -1,9 +1,0 @@
-twig:
-    default_path: '%kernel.project_dir%/templates'
-    globals:
-        hcaptcha_site_key: '%env(HCAPTCHA_SITE_KEY)%'
-        show_language_selector: '%env(FLAG_SHOW_LANGUAGE_SELECTOR)%'
-
-when@test:
-    twig:
-        strict_variables: true
