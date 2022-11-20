@@ -1,15 +1,18 @@
 version: 2.1
 jobs:
     build:
-        working_directory: /tmp
+        working_directory: /tmp/johnnoel-uk
         docker:
             - image: cimg/base:current
         steps:
-            - attach_workspace:
-                  at: /tmp
+            - checkout
             - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
             - store_artifacts:
                   path: /tmp/johnnoel-uk.tar.bz2
+            - persist_to_workspace:
+                  root: /tmp/
+                  paths:
+                      - johnnoel-uk
 
     deploy:
         working_directory: /tmp/johnnoel-uk
