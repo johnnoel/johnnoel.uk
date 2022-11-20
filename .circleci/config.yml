@@ -6,7 +6,7 @@ jobs:
             - image: cimg/base:current
         steps:
             - checkout
-            - run: tar cjf johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
+            - run: tar cjf /tmp/johnnoel-uk.tar.bz2 -C /tmp/johnnoel-uk/ .
             - store_artifacts:
                   path: /tmp/johnnoel-uk.tar.bz2
             - persist_to_workspace:
