@@ -3,7 +3,7 @@ jobs:
     build:
         working_directory: /tmp
         docker:
-            - image: cimg/base
+            - image: cimg/base:current
         steps:
             - attach_workspace:
                   at: /tmp
